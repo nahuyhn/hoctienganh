@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#2563eb" />
+  <title>PET 30-Day Study Planner</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Cambridge English: Preliminary for Schools</p>
+        <h1>PET 30-Day Study Planner</h1>
+        <p class="hero-subtitle">Mỗi ngày mở vào là biết học gì, ôn gì, luyện dạng nào và ghi lỗi ở đâu.</p>
+      </div>
+      <div class="hero-card">
+        <span id="todayLabel">Day 1</span>
+        <strong id="progressPercent">0%</strong>
+        <small>tiến độ hoàn thành</small>
+      </div>
+    </header>
+
+    <main>
+      <nav class="tabs" aria-label="Điều hướng chính">
+        <button class="tab active" data-tab="today">Hôm nay</button>
+        <button class="tab" data-tab="plan">30 ngày</button>
+        <button class="tab" data-tab="vocab">Từ vựng</button>
+        <button class="tab" data-tab="speaking">Speaking</button>
+        <button class="tab" data-tab="errors">Lỗi sai</button>
+        <button class="tab" data-tab="settings">Cài đặt</button>
+      </nav>
+
+      <section id="today" class="panel active-panel">
+        <div class="day-switcher card">
+          <button id="prevDay" class="secondary">← Ngày trước</button>
+          <label>
+            Chọn ngày
+            <select id="daySelect"></select>
+          </label>
+          <button id="nextDay" class="secondary">Ngày sau →</button>
+        </div>
+        <section id="todayContent"></section>
+      </section>
+
+      <section id="plan" class="panel">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">Lộ trình</p>
+            <h2>30 ngày học theo nhịp não</h2>
+          </div>
+          <p class="hint">25 ngày đầu học nền + ghép kỹ năng. 5 ngày cuối mới chuyển sang làm đề có bấm giờ.</p>
+        </div>
+        <div id="planGrid" class="plan-grid"></div>
+      </section>
+
+      <section id="vocab" class="panel">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">Vocabulary</p>
+            <h2>Từ hôm nay + từ cần ôn lại</h2>
+          </div>
+          <button id="shuffleCard" class="secondary">Đổi thẻ</button>
+        </div>
+        <div class="vocab-layout">
+          <div class="flashcard card" id="flashcard" tabindex="0" role="button" aria-label="Bấm để lật thẻ từ vựng">
+            <small>Flashcard</small>
+            <strong id="flashWord">word</strong>
+            <span id="flashMeta">topic</span>
+            <p id="flashMeaning">Bấm để hiện gợi ý học.</p>
+          </div>
+          <div class="card">
+            <h3>Từ vựng hôm nay</h3>
+            <div id="vocabList" class="chips"></div>
+          </div>
+          <div class="card">
+            <h3>Ôn cách quãng</h3>
+            <p class="hint">Tự lấy từ ngày hôm qua, 3 ngày trước và 7 ngày trước.</p>
+            <div id="reviewList" class="chips soft"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="speaking" class="panel">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">Speaking Bank</p>
+            <h2>Luyện nói theo đề thật + theo chủ đề ngày học</h2>
+          </div>
+          <button id="startTimer" class="primary">Bấm giờ 60s</button>
+        </div>
+        <div class="timer card">
+          <span id="timerText">60</span>
+          <small>giây</small>
+        </div>
+        <div id="speakingContent" class="speaking-grid"></div>
+      </section>
+
+      <section id="errors" class="panel">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">Mistake Bank</p>
+            <h2>Ghi lỗi để 5 ngày cuối sửa đúng chỗ</h2>
+          </div>
+          <button id="exportProgress" class="secondary">Xuất tiến độ</button>
+        </div>
+        <div class="card">
+          <label for="mistakeText">Lỗi sai ngày đang chọn</label>
+          <textarea id="mistakeText" rows="8" placeholder="Ví dụ: Listening Part 3 nghe sai số tiền; Writing thiếu lý do; Speaking trả lời quá ngắn..."></textarea>
+          <div class="button-row">
+            <button id="saveMistake" class="primary">Lưu lỗi</button>
+            <button id="copyPrompt" class="secondary">Copy prompt nhờ AI sửa lỗi</button>
+          </div>
+        </div>
+        <div id="mistakeHistory" class="mistake-history"></div>
+      </section>
+
+      <section id="settings" class="panel">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">Cài đặt</p>
+            <h2>Thiết lập ngày bắt đầu</h2>
+          </div>
+        </div>
+        <div class="settings-grid">
+          <div class="card">
+            <label for="startDate">Ngày bắt đầu học</label>
+            <input type="date" id="startDate" />
+            <button id="saveStartDate" class="primary">Lưu ngày bắt đầu</button>
+            <p class="hint">Khi mở bằng điện thoại, web sẽ tự nhảy sang đúng ngày học dựa trên ngày bắt đầu.</p>
+          </div>
+          <div class="card">
+            <h3>Chạy trên GitHub Pages</h3>
+            <ol class="steps">
+              <li>Tạo repository mới trên GitHub.</li>
+              <li>Upload toàn bộ file trong thư mục này.</li>
+              <li>Vào Settings → Pages → Deploy from branch → main/root.</li>
+              <li>Mở link GitHub Pages trên điện thoại và Add to Home Screen.</li>
+            </ol>
+          </div>
+          <div class="card danger-zone">
+            <h3>Dữ liệu lưu trên máy</h3>
+            <p class="hint">Checklist, lỗi sai và ngày bắt đầu được lưu bằng localStorage trên trình duyệt.</p>
+            <button id="resetAll" class="danger">Xóa toàn bộ tiến độ</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <template id="taskTemplate">
+    <label class="task-item">
+      <input type="checkbox" />
+      <span></span>
+    </label>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
