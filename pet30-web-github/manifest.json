@@ -1,0 +1,10 @@
+{
+  "name": "PET 30-Day Study Planner",
+  "short_name": "PET Planner",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#eef4ff",
+  "theme_color": "#2563eb",
+  "description": "A 30-day study planner for Cambridge English Preliminary for Schools.",
+  "icons": []
+}
