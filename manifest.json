@@ -1,10 +1,10 @@
 {
-  "name": "PET 30-Day Study Planner",
-  "short_name": "PET Planner",
+  "name": "PET 30-Day Study Planner Pro",
+  "short_name": "PET Pro",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#eef4ff",
   "theme_color": "#2563eb",
-  "description": "A 30-day study planner for Cambridge English Preliminary for Schools.",
+  "description": "A 30-day PET/B1 Preliminary for Schools planner with grammar lessons, flashcards, pronunciation, quizzes and speaking guides.",
   "icons": []
 }

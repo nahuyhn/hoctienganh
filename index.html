@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#2563eb" />
-  <title>PET 30-Day Study Planner</title>
+  <title>PET 30-Day Study Planner Pro</title>
   <link rel="manifest" href="manifest.json" />
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -13,13 +13,13 @@
     <header class="hero">
       <div>
         <p class="eyebrow">Cambridge English: Preliminary for Schools</p>
-        <h1>PET 30-Day Study Planner</h1>
-        <p class="hero-subtitle">Mỗi ngày mở vào là biết học gì, ôn gì, luyện dạng nào và ghi lỗi ở đâu.</p>
+        <h1>PET 30-Day Study Planner Pro</h1>
+        <p class="hero-subtitle">Mỗi ngày có bài dạy ngữ pháp, flashcard phát âm, quiz pass bài, gợi ý Speaking và nơi ghi lỗi.</p>
       </div>
       <div class="hero-card">
         <span id="todayLabel">Day 1</span>
         <strong id="progressPercent">0%</strong>
-        <small>tiến độ hoàn thành</small>
+        <small>tiến độ task trung bình</small>
       </div>
     </header>
 
@@ -27,7 +27,9 @@
       <nav class="tabs" aria-label="Điều hướng chính">
         <button class="tab active" data-tab="today">Hôm nay</button>
         <button class="tab" data-tab="plan">30 ngày</button>
-        <button class="tab" data-tab="vocab">Từ vựng</button>
+        <button class="tab" data-tab="grammar">Ngữ pháp</button>
+        <button class="tab" data-tab="vocab">Flashcard</button>
+        <button class="tab" data-tab="quiz">Quiz Pass</button>
         <button class="tab" data-tab="speaking">Speaking</button>
         <button class="tab" data-tab="errors">Lỗi sai</button>
         <button class="tab" data-tab="settings">Cài đặt</button>
@@ -56,31 +58,64 @@
         <div id="planGrid" class="plan-grid"></div>
       </section>
 
+      <section id="grammar" class="panel">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">Grammar first</p>
+            <h2>Học công thức trước khi làm bài</h2>
+          </div>
+          <p class="hint">Mỗi bài có: học trước → ví dụ B1 → lỗi dễ sai → bài làm có hướng dẫn.</p>
+        </div>
+        <div id="grammarContent"></div>
+      </section>
+
       <section id="vocab" class="panel">
         <div class="section-title">
           <div>
-            <p class="eyebrow">Vocabulary</p>
-            <h2>Từ hôm nay + từ cần ôn lại</h2>
+            <p class="eyebrow">Vocabulary Flashcards</p>
+            <h2>Từ vựng + phát âm + ví dụ</h2>
           </div>
-          <button id="shuffleCard" class="secondary">Đổi thẻ</button>
+          <button id="shuffleCard" class="secondary">Đổi thẻ ngẫu nhiên</button>
         </div>
         <div class="vocab-layout">
-          <div class="flashcard card" id="flashcard" tabindex="0" role="button" aria-label="Bấm để lật thẻ từ vựng">
-            <small>Flashcard</small>
-            <strong id="flashWord">word</strong>
-            <span id="flashMeta">topic</span>
-            <p id="flashMeaning">Bấm để hiện gợi ý học.</p>
+          <div>
+            <div class="flashcard card" id="flashcard" tabindex="0" role="button" aria-label="Bấm để lật thẻ từ vựng">
+              <small>Flashcard</small>
+              <strong id="flashWord">word</strong>
+              <span id="flashMeta">topic</span>
+              <p id="flashMeaning">Bấm để hiện nghĩa, ví dụ và mẹo phát âm.</p>
+            </div>
+            <div class="button-row card-actions">
+              <button id="prevCard" class="secondary">←</button>
+              <button id="speakWord" class="primary">Nghe phát âm</button>
+              <button id="nextCard" class="secondary">→</button>
+              <button id="markHard" class="secondary">Đánh dấu từ khó</button>
+            </div>
           </div>
           <div class="card">
             <h3>Từ vựng hôm nay</h3>
+            <p class="hint">Bấm vào từng từ để nghe phát âm nhanh.</p>
             <div id="vocabList" class="chips"></div>
           </div>
           <div class="card">
             <h3>Ôn cách quãng</h3>
             <p class="hint">Tự lấy từ ngày hôm qua, 3 ngày trước và 7 ngày trước.</p>
             <div id="reviewList" class="chips soft"></div>
+            <h3>Từ khó đã đánh dấu</h3>
+            <div id="hardWordList" class="chips soft"></div>
           </div>
         </div>
+      </section>
+
+      <section id="quiz" class="panel">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">Pass gate</p>
+            <h2>Quiz trắc nghiệm để qua bài</h2>
+          </div>
+          <p class="hint">Pass từ 80%. Sai sẽ hiện đáp án và giải thích để học lại.</p>
+        </div>
+        <div id="quizContent"></div>
       </section>
 
       <section id="speaking" class="panel">
@@ -142,7 +177,7 @@
           </div>
           <div class="card danger-zone">
             <h3>Dữ liệu lưu trên máy</h3>
-            <p class="hint">Checklist, lỗi sai và ngày bắt đầu được lưu bằng localStorage trên trình duyệt.</p>
+            <p class="hint">Checklist, quiz, từ khó, lỗi sai và ngày bắt đầu được lưu bằng localStorage trên trình duyệt.</p>
             <button id="resetAll" class="danger">Xóa toàn bộ tiến độ</button>
           </div>
         </div>
